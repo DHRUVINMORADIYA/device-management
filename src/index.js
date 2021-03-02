@@ -31,10 +31,19 @@ class Index extends react.Component {
   };
 
   handleSubmit = (e) => {
+    if (this.state.text < 6) {
+      alert("Device name should be at least 6 characters!");
+      return;
+    }
+    if (this.state.dateCreated == null || this.state.dateExpiry == null) {
+      alert("please provide dates!");
+      return;
+    }
     this.setState({
       deviceList: this.state.deviceList.concat({
         name: this.state.text,
-        dateCreated: Date(),
+        dateCreated: this.state.dateCreated,
+        dateExpiry: this.state.dateExpiry,
       }),
       text: "",
     });
@@ -52,7 +61,7 @@ class Index extends react.Component {
               <ul>
                 <li>Name: {i.name}</li>
                 <li>Date Created: {i.dateCreated}</li>
-                <li>Next Service/Expiry: {i.dateCreated}</li>
+                <li>Next Service/Expiry: {i.dateExpiry}</li>
               </ul>
             </li>
           ))}
