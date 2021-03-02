@@ -5,15 +5,29 @@ import react from "react";
 class Index extends react.Component {
   constructor(props) {
     super(props);
-    this.state = { deviceList: [], text: "", date: Date.now() };
+    this.state = {
+      deviceList: [],
+      text: "",
+      dateCreated: null,
+      dateExpiry: null,
+    };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeName = this.handleChangeName.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.printHeader = this.printHeader.bind(this);
+    this.handleChangeDateCreated = this.handleChangeDateCreated.bind(this);
   }
 
-  handleChange = (e) => {
+  handleChangeName = (e) => {
     this.setState({ text: e.target.value });
+  };
+
+  handleChangeDateCreated = (e) => {
+    this.setState({ dateCreated: e.target.value });
+  };
+
+  handleChangeDateExpiry = (e) => {
+    this.setState({ dateExpiry: e.target.value });
   };
 
   handleSubmit = (e) => {
@@ -37,7 +51,8 @@ class Index extends react.Component {
             <li key={i.date}>
               <ul>
                 <li>Name: {i.name}</li>
-                <li>Date Created: {i.date}</li>
+                <li>Date Created: {i.dateCreated}</li>
+                <li>Next Service/Expiry: {i.dateCreated}</li>
               </ul>
             </li>
           ))}
@@ -50,18 +65,29 @@ class Index extends react.Component {
     return (
       <div>
         {this.printHeader()}
+
         <form>
-          Enter name of the device:
+          Enter the name of the device:
           <input
             type="text"
             value={this.state.text}
-            onChange={this.handleChange}
+            onChange={this.handleChangeName}
           />
           <br />
           Enter the purchasing date:
-          <input type="date" value={this.state.date} />
+          <input
+            type="date"
+            value={this.state.dateCreated}
+            onChange={this.handleChangeDateCreated}
+          />
           <br />
           Enter the expiry/next service date:
+          <input
+            type="date"
+            value={this.state.dateExpiry}
+            onChange={this.handleChangeDateExpiry}
+          />
+          <br />
           <button onClick={this.handleSubmit}>Add</button>
         </form>
       </div>
